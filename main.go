@@ -92,3 +92,30 @@
 // 		go manageClient(connection)
 // 	}
 // }
+
+package main
+
+import "fmt"
+
+var eventChannel chan int = make(chan int)
+
+func sayHello() {
+  fmt.Println("Hello, world!")
+
+  //pass a message thorugh the eventChannel
+  //it dosen't matter *what* we actually send across
+
+  eventChannel < - 1
+}
+
+func main() {
+
+  //run a goroutine taht says hello
+  go sayHello()
+
+  //read the eventChannel
+  //this call blocks so it waits until sayHello()
+  //is done
+
+  < - eventChannel
+}
